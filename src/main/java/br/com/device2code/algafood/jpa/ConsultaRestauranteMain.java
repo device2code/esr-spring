@@ -1,28 +1,29 @@
 package br.com.device2code.algafood.jpa;
 
+import java.util.List;
+
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 
 import br.com.device2code.algafood.AlgafoodApiApplication;
-import br.com.device2code.algafood.domain.model.Cozinha;
-import br.com.device2code.algafood.domain.repository.CozinhaRepository;
+import br.com.device2code.algafood.domain.model.Restaurante;
+import br.com.device2code.algafood.domain.repository.RestauranteRepository;
 
-public class ExclusaoCozinhaMain {
+public class ConsultaRestauranteMain {
 
 	public static void main(String[] args) {
 		ApplicationContext applicationContext = new SpringApplicationBuilder(AlgafoodApiApplication.class)
 				.web(WebApplicationType.NONE)
 				.run(args);
 		
-		CozinhaRepository cozinhaRepository = applicationContext.getBean(CozinhaRepository.class);
+		RestauranteRepository restauranteRepository = applicationContext.getBean(RestauranteRepository.class);
 		
-		Cozinha cozinha = new Cozinha();
-		cozinha.setId(1L);
+		List<Restaurante> todosRestaurantes = restauranteRepository.listar();
 		
-		cozinhaRepository.remover(cozinha);
-			
-		
+		for (Restaurante restaurante : todosRestaurantes) {
+			System.out.println(restaurante.getNome());
+		}
 	}
 	
 }
